@@ -1,5 +1,6 @@
 package blog.services;
 
+import blog.services.interfaces.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +27,8 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     private void addNotificationMessage(NotificationMessageType type, String msg) {
-        List<NotificationMessage> notifyMessages = (List<NotificationMessage>)
-                httpSession.getAttribute(NOTIFY_MSG_SESSION_KEY);
+        List<NotificationMessage> notifyMessages =
+                (List<NotificationMessage>) httpSession.getAttribute(NOTIFY_MSG_SESSION_KEY);
         if (notifyMessages == null) {
             notifyMessages = new ArrayList<NotificationMessage>();
         }
@@ -40,7 +41,7 @@ public class NotificationServiceImpl implements NotificationService {
         ERROR
     }
 
-    public class NotificationMessage {
+    public static class NotificationMessage {
         NotificationMessageType type;
         String text;
 

@@ -7,6 +7,7 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,7 +22,7 @@ public class User {
     private String fullName;
 
     @OneToMany(mappedBy = "author")
-    private Set<Post> posts = new HashSet<Post>();
+    private Set<Post> posts = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -64,17 +65,6 @@ public class User {
     }
 
     public User() {
-    }
-
-    public User(String username, String fullName) {
-        this.username = username;
-        this.fullName = fullName;
-    }
-
-    public User(Long id, String username, String fullName) {
-        this.id = id;
-        this.username = username;
-        this.fullName = fullName;
     }
 
     @Override

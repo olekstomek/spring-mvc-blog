@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: site-head">
+    <title>Spring MVC Blog</title>
+</head>
+
+<body>
+<header th:replace="layout :: site-header"/>
+
+<main id="users">
+    <table class="table table-bordered" width="50%" id="dataTable" cellspacing="1">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Date</th>
+            <th>Author ID</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="post : ${posts}">
+            <td th:text="${post.id}">ID</td>
+            <td th:text="${post.title}">Title</td>
+            <td th:text="${post.body}">Content</td>
+            <td th:text="${post.date}">Date</td>
+            <td th:text="${post.author.id}">Full Name</td>
+            <td><a href="edit.html" th:href="@{/posts/edit/} + ${post.id}">[Edit]</a><br/>
+                <a href="delete.html" th:href="@{/posts/delete/} + ${post.id}">[Delete]</a></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+
+<footer th:replace="layout :: site-footer"/>
+</body>
+
+</html>
+

@@ -73,5 +73,14 @@ ul#messages li.error {
 .formError {
     color: red;
     font-style: italic;
-    font-size: 0.9em;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table, td, th {
+  border: 3px solid white;
+  background: #DDDDDD;
+  padding: 9px;
 }

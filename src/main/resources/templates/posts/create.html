@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: site-head">
+    <title>Spring MVC Blog</title>
+</head>
+
+<body>
+<header th:replace="layout :: site-header"/>
+
+<h1>Create New Post</h1>
+
+<form th:action="@{/posts/create}" method="post" th:object="${post}">
+    <div><label for="title">Title:</label></div>
+    <input type="hidden" id="id" th:field="*{id}"/>
+    <input type="hidden" id="author.id" th:field="*{author.id}"/>
+    <input type="hidden" id="author.username" th:field="*{author.username}"/>
+
+    <input id="title" type="text" name="title" th:value="*{title}"/>
+    <span class="formError" th:if="${#fields.hasErrors('title')}"
+          th:errors="*{title}">Invalid title</span>
+
+    <div><label for="body">Content:</label></div>
+    <textarea id="body" rows="5" th:field="*{body}"/>
+    <span class="formError" th:if="${#fields.hasErrors('body')}"
+          th:errors="*{title}">Invalid content</span>
+
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+    <div><input type="submit" value="Create"/>
+        <a href="posts.html" th:href="@{/}">[Cancel]</a></div>
+</form>
+
+<footer th:replace="layout :: site-footer"/>
+</body>
+
+</html>
+

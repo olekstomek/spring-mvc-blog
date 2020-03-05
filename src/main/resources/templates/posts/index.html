@@ -2,29 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="layout :: site-head">
-    <title th:text="${post.title}">Post Details</title>
+    <title>Spring MVC Blog</title>
 </head>
 
 <body>
-<header th:replace="layout :: site-header" />
+
+<header th:replace="layout :: site-header"/>
 
 <main id="posts">
-    <article>
-        <h2 class="title" th:text="${post.title}">Post Title</h2>
+    <article th:each="p : ${latest3posts}">
+        <h2 class="title" th:text="${p.title}">Post Title</h2>
         <div class="date">
             <i>Posted on</i>
-            <span th:text="${#dates.format(post.date, 'dd-MMM-yyyy')}">22-May-2016</span>
-            <span th:if="${post.author}" th:remove="tag">
-                    <i>by</i> <span th:text="${post.author.fullName != null ?
-                        post.author.fullName : post.author.username}">Svetlin Nakov</span>
-                </span>
+            <span th:text="${#dates.format(p.date, 'dd-MMM-yyyy')}">22-May-2016</span>
+            <span th:if="${p.author}" th:remove="tag">
+          <i>by</i>
+          <span th:text="${p.author.fullName != null ?
+                        p.author.fullName : p.author.username}">Svetlin Nakov</span>
+        </span>
         </div>
-        <p class="content" th:utext="${post.body}">Post content</p>
+        <p class="content" th:utext="${p.body}">Post content</p>
     </article>
 </main>
 
-<footer th:replace="layout :: site-footer" />
+<footer th:replace="layout :: site-footer"/>
 </body>
 
 </html>
-

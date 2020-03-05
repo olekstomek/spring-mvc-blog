@@ -13,7 +13,8 @@ public class Post {
     @Column(nullable = false, length = 300)
     private String title;
 
-    @Lob @Column(nullable = false)
+    @Lob
+    @Column(nullable = false)
     private String body;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -62,7 +63,8 @@ public class Post {
         this.date = date;
     }
 
-    public Post() {}
+    public Post() {
+    }
 
     public Post(Long id, String title, String body, User author) {
         this.id = id;

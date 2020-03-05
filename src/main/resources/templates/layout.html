@@ -1,56 +1,51 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:fragment="site-head">
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <link rel="stylesheet" href="../public/css/styles.css"
-          th:href="@{/css/styles.css}" />
+          th:href="@{/css/styles.css}"/>
     <link rel="icon" href="../public/img/favicon.ico"
-          th:href="@{/img/favicon.ico}" />
+          th:href="@{/img/favicon.ico}"/>
     <script src="../public/js/jquery-3.1.0.min.js"
             th:src="@{/js/jquery-3.1.0.min.js}"></script>
     <script src="../public/js/blog-scripts.js" th:src="@{/js/blog-scripts.js}"></script>
     <meta th:include="this :: head" th:remove="tag"/>
 </head>
-
 <body>
-
 <header th:fragment="site-header" th:remove="tag">
     <header>
         <a href="index.html" th:href="@{/}"><img
-                src="../public/img/site-logo.png" th:src="@{/img/site-logo.png}" /></a>
-        <a href="index.html" th:href="@{/}">Home</a>
-        <a href="users/login.html" th:href="@{/users/login}">Login</a>
-        <a href="users/register.html" th:href="@{/users/register}">Register</a>
-        <a href="posts/index.html" th:href="@{/posts}">Posts</a>
-        <a href="posts/create.html" th:href="@{/posts/create}">Create Post</a>
-        <a href="users/index.html" th:href="@{/users}">Users</a>
+                src="../public/img/site-logo.png" th:src="@{/img/site-logo.png}"/></a>
+        <a href="index.html" th:href="@{/}" sec:authorize="isAuthenticated()">Home</a>
+        <a href="users/login.html" th:href="@{/users/login}" sec:authorize="isAnonymous()">Login</a>
+        <a href="users/register.html" th:href="@{/users/register}" sec:authorize="isAnonymous()">Register</a>
+        <a href="posts/index.html" th:href="@{/posts}" sec:authorize="isAuthenticated()">Posts</a>
+        <a href="posts/create.html" th:href="@{/posts/create}" sec:authorize="isAuthenticated()">Create Post</a>
+        <a href="users/index.html" th:href="@{/users}" sec:authorize="isAuthenticated()">Users</a>
         <div id="logged-in-info">
-            <span>Hello, <b>(user)</b></span>
-            <form method="post" th:action="@{/users/logout}">
-                <input type="submit" value="Logout"/>
-            </form>
+            <span sec:authorize="isAuthenticated()">
+                    Hello, <b><span sec:authentication="name"></span></b>
+                <form method="post" th:action="@{/logout}">
+                           <input type="submit" value="Logout"/>
+                </form>
+                </span>
         </div>
     </header>
 
     <ul id="messages" th:with="notifyMessages=${session[T(blog.services
           .NotificationServiceImpl).NOTIFY_MSG_SESSION_KEY]}">
-        <li th:each="msg : ${notifyMessages}"
-            th:text="${msg.text}"
+        <li th:each="msg : ${notifyMessages}" th:text="${msg.text}"
             th:class="${#strings.toLowerCase(msg.type)}">
         </li>
         <span th:if="${notifyMessages}" th:remove="all" th:text="${session.remove(
           T(blog.services.NotificationServiceImpl).NOTIFY_MSG_SESSION_KEY)}"></span>
+
     </ul>
 </header>
-
-
 <h1>Welcome</h1>
 <p>Welcome to the Spring MVC Blog.</p>
-
 <footer th:fragment="site-footer">
-    &copy; Spring MVC Blog System, 2016
+    &copy; Spring MVC Blog System, 2016 - 2020
 </footer>
 </body>
-
 </html>
