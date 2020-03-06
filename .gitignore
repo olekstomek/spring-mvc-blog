@@ -38,3 +38,8 @@ target/classes/public/
 target/classes/templates/
 target/generated-sources/
 
+.idea/inspectionProfiles/
+.idea/uiDesigner.xml
+target/classes/META-INF/
+target/classes/data.sql
+target/classes/db.sql
